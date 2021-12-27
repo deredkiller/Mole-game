@@ -2,6 +2,7 @@ package com.example.myprojectmolegame;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -17,7 +18,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageView img1, img2, img3, img4;
     private Controller controller;
     private int imgPos[] = new int[4];
-
+    public final int MOLE = 0;
+    public final int HOLE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,43 +28,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
 
-        controller = new Controller(this);
-        initiateImageViws();
         dynamicLayout();
-
+        controller = new Controller(this);
 
     }
 
-    private void initiateImageViws() {
-        img1 = findViewById(R.id.imageView);
-        Log.d("TSG", img1.toString());
-        img2 = findViewById(R.id.imageView2);
-        img3 = findViewById(R.id.imageView3);
-        img4 = findViewById(R.id.imageView4);
-//i need to do an array for the img
-        img1.setOnClickListener(this);
-        img2.setOnClickListener(this);
-        img3.setOnClickListener(this);
-        img4.setOnClickListener(this);
-
-        img1.setTag(0);
-        img2.setTag(1);
-        img3.setTag(2);
-        img4.setTag(3);
-    }
 
     @Override
     public void onClick(View view) {
-        Log.d("ON CLICK", "img1: " + img1);
-        int tag = (int) view.getTag();
-        controller.moleClicked(tag);
+
+        int id = (int) view.getId();
+        controller.moleClicked(id);
 
 
     }
 
     public void dynamicLayout() {
         LinearLayout llMainDynamic = findViewById(R.id.llDynamic);
-        Log.d("TDG", "hole number: " + llMainDynamic);
+
 
         llMainDynamic.setOrientation(LinearLayout.VERTICAL);
         DisplayMetrics metrics = getResources().getDisplayMetrics();
@@ -89,10 +72,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                b.setLayoutParams(elementLayout);
 //                b.setText(i+"hole"+j);
 //                rowInboard.addView(b);
-                ImageView img1 = new ImageView(this);
-                img1.setLayoutParams(elementLayout);
-                img1.setImageResource(R.drawable.hole);
-                rowInboard.addView(img1);
+                ImageView fuckimage = new ImageView(this);
+//                fuckimage.setTag((i *3) + (j + 1));
+                fuckimage.setId((i *3) + (j + 1));
+                fuckimage.setLayoutParams(elementLayout);
+                fuckimage.setImageResource(R.drawable.hole);
+                fuckimage.setOnClickListener(this);
+                rowInboard.addView(fuckimage);
 
             }
             LinearLayoutBoard.addView(rowInboard);
@@ -102,27 +88,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    public void displayElement(int holeNum, int element) {
 
-    public void displayHole(int holeNum) {
-        Log.d("TDG", "hole number: " + holeNum);
-        Log.d("TDG", "img1: " + img1);
+        int image = R.drawable.hole;
+        if (element == MOLE) image = R.drawable.mole;
+        ImageView imageView = findViewById(holeNum);
 
-
-        switch (holeNum) {
-            case 0:
-                img1.setImageResource(R.drawable.hole);
-                break;
-            case 1:
-                img2.setImageResource(R.drawable.hole);
-                break;
-            case 2:
-                img3.setImageResource(R.drawable.hole);
-                break;
-            case 3:
-                img4.setImageResource(R.drawable.hole);
-                break;
-
-        }
+        imageView.setImageResource(image);
     }
 
 
