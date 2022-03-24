@@ -3,10 +3,17 @@ package com.example.myprojectmolegame;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
+import android.util.Log;
 
-public class ThreadMolePopUp extends  Thread {
+public class ThreadMolePopUp extends Thread {
     Handler handler;
-    Controller controller;
+
+    public void setRun(boolean run) {
+        isRun = run;
+    }
+
+    private boolean isRun=true;
+
     public ThreadMolePopUp(Handler handler) {
         this.handler = handler;
 
@@ -15,12 +22,10 @@ public class ThreadMolePopUp extends  Thread {
     @Override
     public void run() {
         super.run();
-        while(true){
-            SystemClock.sleep(2000);
-
-
+        while (isRun) {
+            SystemClock.sleep(400);
             Message msg = new Message();
-            msg.obj=0;
+            msg.obj = 0;
             handler.sendMessage(msg);
 
         }

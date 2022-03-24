@@ -8,17 +8,63 @@
     android:weightSum="8"
     tools:context=".MainActivity">
 
+    <!--    <VideoView-->
+    <!--        android:id="@+id/adsads"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="100dp"-->
+    <!--/>-->
+    <LinearLayout
+        android:id="@+id/linearLayoutScore"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/linearLayoutScore1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/scoreView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:text="score"
+                android:textColor="@color/black"
+                android:textSize="25dp"
+               />
+            >
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayoutPause"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/pause"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="right"
+                android:src="@drawable/pause"
+                ></ImageView>
+        </LinearLayout>
+    </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/llDynamic"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/llDynamic"
+        android:layout_weight="8"
         android:orientation="horizontal"
-        tools:context=".DynamicProgram"
-        ></LinearLayout>
+        tools:context=".DynamicProgram">
 
 
-
+    </LinearLayout>
 
 
 </LinearLayout>

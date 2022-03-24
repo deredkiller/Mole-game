@@ -10,10 +10,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyProjectMoleGame">
         <activity
-            android:name=".loginActivity"
+            android:name=".Score"
             android:exported="true" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Instructions"
+            android:exported="true" />
+        <activity
+            android:name=".Settings"
+            android:exported="true" />
+        <activity
+            android:name=".Menu"
+            android:exported="true" />
+        <activity
+            android:name=".modesActivity"
+            android:exported="true" />
+        <activity
+            android:name=".loginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,6 +33,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MainActivity"
+            android:exported="true" />
     </application>
 
 </manifest>
