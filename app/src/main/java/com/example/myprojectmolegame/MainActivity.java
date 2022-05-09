@@ -32,17 +32,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private LinearLayout llMainDynamic;
     private LinearLayout LinearLayoutScore1, LinearLayoutPause;
     private ImageButton btnRetry;
-    private DBHelper dataBase=new DBHelper(this) ;
-    private static final String DATABASENAME ="result.db" ;
-    private static final int DATABASEVERSION = 1;
-    private static final String TABLE_RECORD = "tblresult";
-    private static final String COLUMN_ID ="_id" ;
-    private static final String COLUMN_NAME = "name";
-    private static final String COLUMN_SCORE = "score";
-    private static final  String[] allColumns ={COLUMN_ID,COLUMN_NAME,COLUMN_SCORE};
-    private static final String CREATE_TABLE_USER = "CREATE TABLE  IF NOT  EXISTS " +  TABLE_RECORD
-            +"("+ COLUMN_ID+ " INTEGER PRIMARY KEY AUTOINCREMENT,"+"TEXT,"+COLUMN_SCORE+" INTEGER );";
-    private SQLiteDatabase database;
+
 
 
     @Override
@@ -53,7 +43,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         dynamicLayoutConstruction();
         controller = new Controller(this);
-        insert();
 //        makeBackroundVideo();
 
     }
@@ -157,17 +146,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         LinearLayout.LayoutParams retryParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         btnRetry.setLayoutParams(retryParams);
         llMainDynamic.addView(btnRetry);
+
     }
-    public void  insert(){
-        dataBase.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_NAME,"ETHAN");
-        values.put(COLUMN_SCORE,120);
-        database.close();
-    }
+
 
     public void displayScore(int score) {scoreView.setText("score:" + score);
     }
-
+//todo why the heck it isnt reseting the score and need to do puase button and finish the score tonight!!!!!!!!!!!!!!!!!!!!!
 
 }

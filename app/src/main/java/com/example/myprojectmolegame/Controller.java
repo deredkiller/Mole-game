@@ -14,11 +14,13 @@ public class Controller {
     public int numOfHoles=9;
     private Model model;
     private int streak=0;
+    private DBHelper dataBase;
 
 
     public Controller(MainActivity activity) {
         this.activity = activity;
         model=new Model(numOfHoles);
+        dataBase= new DBHelper(activity);
         initiateThread();
     }
     // when the mole is clicked cheek if its a mole or an hole and if true then display an hole insted of the mole
@@ -63,6 +65,7 @@ public class Controller {
     private void lose() {
         stopThread();
         activity.displayLose();
+        insert("ethan",score);
         model=new Model(numOfHoles);
     }
 
@@ -95,5 +98,8 @@ public class Controller {
         streak=0;
     }
 
+    public void insert(String name , int score){
 
+        dataBase.insert(200 , "ethan");
+    }
 }
