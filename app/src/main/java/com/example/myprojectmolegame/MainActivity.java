@@ -1,8 +1,11 @@
 package com.example.myprojectmolegame;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -34,7 +37,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageButton btnRetry;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,8 +45,59 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         dynamicLayoutConstruction();
         controller = new Controller(this);
+        setOnClicks();
 //        makeBackroundVideo();
 
+    }
+
+    private void setOnClicks() {
+        btnRetry = new ImageButton(this);
+        btnRetry.setImageResource(R.drawable.reloading);
+        btnRetry.setBackgroundResource(R.drawable.white);
+        btnRetry.setTag("btnRetry");
+        btnRetry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                llMainDynamic.removeAllViews();
+                for (int i = 0; i < 9; i++) {
+                    imgArray[i].setImageResource(R.drawable.hole);
+                }
+                llMainDynamic.addView(linearLayoutBoard);
+                LinearLayoutScore1.addView(scoreView);
+                LinearLayoutPause.addView(imgPause);
+                scoreView.setText("score");
+                controller.startThread();
+                controller.clearScore();
+                controller.clearStreak();
+
+            }
+
+        });
+
+
+        imgPause = findViewById(R.id.pause);
+        imgPause.setTag("pause");
+        imgPause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (v.getTag().equals("pause")) {
+                    controller.stopThread();
+                    imgPause.setTag("paused");
+                } else {
+                    controller.startThread();
+                    imgPause.setTag("pause");
+                }
+            }
+        });
+
+
+    }
+
+
+    @Override
+    public void onClick(View view) {
+        Log.d("hello", "onClick: " + view.getTag().toString());
+        controller.moleClicked((int) view.getTag());
     }
 
 //    private void makeBackroundVideo() {
@@ -60,8 +113,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         LinearLayoutScore1.setOnClickListener(this);
         LinearLayoutScore1.setTag("layoutScore");
         scoreView = findViewById(R.id.scoreView);
-        imgPause = findViewById(R.id.pause);
-
         llMainDynamic = findViewById(R.id.llDynamic);
         llMainDynamic.setOrientation(LinearLayout.VERTICAL);
         DisplayMetrics metrics = getResources().getDisplayMetrics();
@@ -101,30 +152,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         llMainDynamic.addView(linearLayoutBoard);
     }
 
-    @Override
-    public void onClick(View view) {
-        Log.d("hello", "onClick: " + view.getTag().toString());
-        if (view.getTag().equals("btnRetry")) {
-            llMainDynamic.removeAllViews();
-            for (int i = 0; i < 9; i++) {
-                imgArray[i].setImageResource(R.drawable.hole);
-            }
-            llMainDynamic.addView(linearLayoutBoard);
-            LinearLayoutScore1.addView(scoreView);
-            scoreView.setText("score");
-            controller.startThread();
-        } else {
-            if (view.getTag().equals("pause")) {
-                controller.clearStreak();
-                controller.clearScore();
-            } else {
-                controller.moleClicked((int) view.getTag());
-            }
-        }
-
-    }
-
-
 
     public void displayElement(int holeNum, Element element) {
         int image = R.drawable.hole;
@@ -138,20 +165,44 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         llMainDynamic.removeView(linearLayoutBoard);
         LinearLayoutPause.removeView(imgPause);
         LinearLayoutScore1.removeView(scoreView);
-        btnRetry = new ImageButton(this);
-        btnRetry.setImageResource(R.drawable.reloading);
-        btnRetry.setBackgroundResource(R.drawable.white);
-        btnRetry.setOnClickListener(this);
-        btnRetry.setTag("btnRetry");
         LinearLayout.LayoutParams retryParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         btnRetry.setLayoutParams(retryParams);
         llMainDynamic.addView(btnRetry);
+        displayDialog();
 
     }
 
-
-    public void displayScore(int score) {scoreView.setText("score:" + score);
+    public void clearScore() {
+        scoreView.setText("score: 0");
     }
-//todo why the heck it isnt reseting the score and need to do puase button and finish the score tonight!!!!!!!!!!!!!!!!!!!!!
 
+
+    public void displayScore(int score) {
+        scoreView.setText("score:" + score);
+    }
+
+    public void displayDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("are you sure you want to upload this new score to the score board ")
+                .setCancelable(false)
+                .setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        String parts[] = (String.valueOf(scoreView.getText()).split(":"));
+                        for(String part: parts) {
+                        }
+                        Intent oldIntent = getIntent();
+                        controller.insert(oldIntent.getStringExtra("USERNAME"),Integer.parseInt(parts[1]));
+                    }
+                })
+                .setNegativeButton("no", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                        //YOUR CODE HERE
+                    }
+                }).setTitle("upload score?");
+        //Creating dialog box
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
 }
+

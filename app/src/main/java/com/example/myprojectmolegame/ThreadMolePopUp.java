@@ -23,10 +23,10 @@ public class ThreadMolePopUp extends Thread {
     public void run() {
         super.run();
         while (isRun) {
-            SystemClock.sleep(400);
             Message msg = new Message();
             msg.obj = 0;
             handler.sendMessage(msg);
+            SystemClock.sleep(400);
 
         }
     }

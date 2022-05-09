@@ -10,6 +10,7 @@ import android.widget.Button;
 
 public class Menu extends AppCompatActivity implements View.OnClickListener {
  Button btnPlay,btnScore,btnInstructions,btnSettings;
+ String userName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -24,12 +25,16 @@ public class Menu extends AppCompatActivity implements View.OnClickListener {
         btnScore.setOnClickListener(this);
         btnSettings.setOnClickListener(this);
         btnInstructions.setOnClickListener(this);
+
     }
 
     @Override
     public void onClick(View view) {
         if(view==btnPlay){
             Intent intent =new Intent(this,MainActivity.class);
+            Intent oldIntent = getIntent();
+            userName=oldIntent.getStringExtra("USERNAME");
+            intent.putExtra("USERNAME",userName);
             startActivity(intent);
         }
         if(view==btnScore){

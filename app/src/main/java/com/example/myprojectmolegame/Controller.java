@@ -30,6 +30,7 @@ public class Controller {
             activity.displayElement(id,Element.HOLE);
             activity.displayScore(Score());
         }
+        else clearStreak();
     }
 
     public int Score (){
@@ -93,6 +94,7 @@ public class Controller {
 
     public void clearScore() {
         score=0;
+        activity.clearScore();
     }
     public void clearStreak(){
         streak=0;
@@ -100,6 +102,6 @@ public class Controller {
 
     public void insert(String name , int score){
 
-        dataBase.insert(200 , "ethan");
+        dataBase.insert(score , name);
     }
 }
