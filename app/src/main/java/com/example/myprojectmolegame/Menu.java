@@ -8,46 +8,66 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 
+
+
 public class Menu extends AppCompatActivity implements View.OnClickListener {
- Button btnPlay,btnScore,btnInstructions,btnSettings;
- String userName;
+    Button btnPlay, btnScore, btnInstructions, btnSettings;
+    String userName;
+    Intent musicIntent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getSupportActionBar().hide();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menue);
-        btnPlay=findViewById(R.id.btnPlay);
-        btnScore=findViewById(R.id.btnScore);
-        btnInstructions=findViewById(R.id.btnInstructions);
-        btnSettings=findViewById(R.id.btnSettings);
+        btnPlay = findViewById(R.id.btnPlay);
+        btnScore = findViewById(R.id.btnScore);
+        btnInstructions = findViewById(R.id.btnInstructions);
+        btnSettings = findViewById(R.id.btnSettings);
         btnPlay.setOnClickListener(this);
         btnScore.setOnClickListener(this);
         btnSettings.setOnClickListener(this);
         btnInstructions.setOnClickListener(this);
+        musicIntent = new Intent(this, MyService.class);
 
     }
 
     @Override
     public void onClick(View view) {
-        if(view==btnPlay){
-            Intent intent =new Intent(this,MainActivity.class);
+        if (view == btnPlay) {
+            Intent intent = new Intent(this, MainActivity.class);
             Intent oldIntent = getIntent();
-            userName=oldIntent.getStringExtra("USERNAME");
-            intent.putExtra("USERNAME",userName);
+            userName = oldIntent.getStringExtra("USERNAME");
+            intent.putExtra("USERNAME", userName);
             startActivity(intent);
         }
-        if(view==btnScore){
-            Intent intent =new Intent(this, Score.class);
+        if (view == btnScore) {
+            Intent intent = new Intent(this, Score.class);
             startActivity(intent);
         }
-        if(view==btnSettings){
-            Intent intent =new Intent(this,Settings.class);
+        if (view == btnSettings) {
+            Intent intent = new Intent(this, Settings.class);
             startActivity(intent);
         }
-        if(view==btnInstructions){
-            Intent intent =new Intent(this,Instructions.class);
+        if (view == btnInstructions) {
+            Intent intent = new Intent(this, Instructions.class);
             startActivity(intent);
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        startService(musicIntent);
+
+
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        stopService(musicIntent);
     }
 }

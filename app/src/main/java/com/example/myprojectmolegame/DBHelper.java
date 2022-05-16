@@ -1,5 +1,6 @@
 package com.example.myprojectmolegame;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -54,24 +55,24 @@ public class DBHelper extends SQLiteOpenHelper {
 
         database.close();
     }
-public ArrayList<ModelUser> selectAll(){
-    database = getReadableDatabase(); // get access to read the database
-    ArrayList<ModelUser> users = new ArrayList<>();
-    String sortOrder = COLUMN_SCORE + " DESC"; // sorting by score
-    Cursor cursor = database.query(TABLE_RECORD, allColumns, null, null, null, null,
-            sortOrder); // cursor points at a certain row
-    if (cursor.getCount() > 0) {
-        while (cursor.moveToNext()) {
-            String name = cursor.getString(cursor.getColumnIndex(COLUMN_NAME));
-            int score = cursor.getInt(cursor.getColumnIndex(COLUMN_SCORE));
-            ModelUser user= new ModelUser(name, score);
-            users.add(user);
+    public ArrayList<ModelUser> selectAll(){
+        database = getReadableDatabase(); // get access to read the database
+        ArrayList<ModelUser> users = new ArrayList<>();
+        String sortOrder = COLUMN_SCORE + " DESC"; // sorting by score
+        Cursor cursor = database.query(TABLE_RECORD, allColumns, null, null, null, null,
+                sortOrder); // cursor points at a certain row
+        if (cursor.getCount() > 0) {
+            while (cursor.moveToNext()) {
+                @SuppressLint("Range") String name = cursor.getString(cursor.getColumnIndex(COLUMN_NAME));
+                @SuppressLint("Range") int score = cursor.getInt(cursor.getColumnIndex(COLUMN_SCORE));
+                ModelUser user= new ModelUser(name, score);
+                users.add(user);
+            }
         }
-    }
-    database.close();
-    return users;
+        database.close();
+        return users;
 
-}
+    }
 }
 
 
