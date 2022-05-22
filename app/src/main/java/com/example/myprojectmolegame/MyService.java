@@ -13,18 +13,20 @@ public class MyService extends Service {
     public MyService(){}
 
     @Override
-    public void onCreate() {
-        super.onCreate();
-        player=MediaPlayer.create(this,R.raw.diglet_loop);
-        player.setLooping(true);
-        player.setVolume(100,100);
-    }
-
-    @Override
     public IBinder onBind(Intent intent) {
         return null;
 
     }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        player=MediaPlayer.create(this,R.raw.background_music);
+        player.setLooping(true);
+        player.setVolume(100,100);
+    }
+
+
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {

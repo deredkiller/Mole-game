@@ -13,7 +13,7 @@ import androidx.annotation.Nullable;
 
 import java.util.List;
 
-public class CustomScoreListAdapter extends ArrayAdapter<Score> {
+public class CustomScoreListAdapter extends ArrayAdapter<ScoreActivity> {
     Context context;
     @SuppressLint("ResourceAsColor")
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -24,7 +24,7 @@ public class CustomScoreListAdapter extends ArrayAdapter<Score> {
 
 
 
-    public CustomScoreListAdapter(@NonNull Context context, int resource, int textViewResourceId, @NonNull List<Score> objects) {
+    public CustomScoreListAdapter(@NonNull Context context, int resource, int textViewResourceId, @NonNull List<ScoreActivity> objects) {
         super(context, resource, textViewResourceId, objects);
     }
 }

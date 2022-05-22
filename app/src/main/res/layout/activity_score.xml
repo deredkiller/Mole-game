@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Score">
+    tools:context=".ScoreActivity">
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -34,11 +34,13 @@
 
 
     </LinearLayout>
-
-
-    <ListView
-        android:id="@+id/scoreList"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        ></ListView>
+    <TextView
+            android:id="@+id/scoreList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></TextView>
+<!--    <ListView-->
+<!--        android:id="@+id/scoreList"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        ></ListView>-->
 </LinearLayout>

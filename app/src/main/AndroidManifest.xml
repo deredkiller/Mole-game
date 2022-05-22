@@ -9,21 +9,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyProjectMoleGame">
+        <service android:name=".MyService">
+        </service>
         <activity
-            android:name=".Score"
-            android:exported="true" />
+            android:name=".ScoreActivity"
+            android:exported="true"
+            android:label="                                                              Menu"/>
         <activity
             android:name=".Instructions"
-            android:exported="true" />
+            android:exported="true"
+            android:label="                                                              Menu"/>
         <activity
             android:name=".Settings"
             android:exported="true" />
         <activity
             android:name=".Menu"
-            android:exported="true" />
+            android:exported="true"
+            />
         <activity
             android:name=".modesActivity"
-            android:exported="true" />
+            android:exported="true" android:label="                                                              Modes Activity"/>
         <activity
             android:name=".loginActivity"
             android:exported="true">

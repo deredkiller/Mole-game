@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -15,11 +16,21 @@ public class Menu extends AppCompatActivity implements View.OnClickListener {
     String userName;
     Intent musicIntent;
 
+
+    @Override
+    public boolean onCreateOptionsMenu(android.view.Menu menu) {
+        MenuInflater inflater= getMenuInflater();
+        inflater.inflate(R.menu.menu,menu);
+        return true;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getSupportActionBar().hide();
         super.onCreate(savedInstanceState);
+        musicIntent = new Intent(this, MyService.class);
+        startService(musicIntent);
         setContentView(R.layout.activity_menue);
         btnPlay = findViewById(R.id.btnPlay);
         btnScore = findViewById(R.id.btnScore);
@@ -29,7 +40,7 @@ public class Menu extends AppCompatActivity implements View.OnClickListener {
         btnScore.setOnClickListener(this);
         btnSettings.setOnClickListener(this);
         btnInstructions.setOnClickListener(this);
-        musicIntent = new Intent(this, MyService.class);
+
 
     }
 
@@ -43,7 +54,7 @@ public class Menu extends AppCompatActivity implements View.OnClickListener {
             startActivity(intent);
         }
         if (view == btnScore) {
-            Intent intent = new Intent(this, Score.class);
+            Intent intent = new Intent(this, ScoreActivity.class);
             startActivity(intent);
         }
         if (view == btnSettings) {
