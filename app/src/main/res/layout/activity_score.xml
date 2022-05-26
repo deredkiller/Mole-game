@@ -34,11 +34,12 @@
 
 
     </LinearLayout>
+
     <TextView
-            android:id="@+id/scoreList"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></TextView>
-<!--    <ListView-->
+        android:id="@+id/scoreList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></TextView>
+    <!--    <ListView-->
 <!--        android:id="@+id/scoreList"-->
 <!--        android:layout_width="match_parent"-->
 <!--        android:layout_height="match_parent"-->

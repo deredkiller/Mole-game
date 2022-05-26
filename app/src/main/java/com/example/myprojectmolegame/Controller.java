@@ -3,7 +3,6 @@ package com.example.myprojectmolegame;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 public class Controller {
@@ -66,7 +65,6 @@ public class Controller {
     private void lose() {
         stopThread();
         activity.displayLose();
-        insert("ethan",score);
         model=new Model(numOfHoles);
     }
 
@@ -100,8 +98,8 @@ public class Controller {
         streak=0;
     }
 
-    public void insert(String name , int score){
+    public void insert(ModelUser user){
 
-        dataBase.insert(score , name);
+        dataBase.insert(user);
     }
 }

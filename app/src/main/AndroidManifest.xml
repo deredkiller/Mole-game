@@ -14,14 +14,15 @@
         <activity
             android:name=".ScoreActivity"
             android:exported="true"
-            android:label="                                                              Menu"/>
+            android:label="                                                              Score"/>
         <activity
             android:name=".Instructions"
             android:exported="true"
-            android:label="                                                              Menu"/>
+            android:label="                                                              Instructions"/>
         <activity
             android:name=".Settings"
-            android:exported="true" />
+            android:exported="true"
+            android:label="                                                              Settings"/>
         <activity
             android:name=".Menu"
             android:exported="true"

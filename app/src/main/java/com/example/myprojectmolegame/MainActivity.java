@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     // 3. instructions
     // 4. choose - easy, normal, hard (notice model-view-controller)
     // 5. records - after we establish a database TODO
-    private TextView scoreView;
+    private TextView scoreView,scoreNum;
     private Controller controller;
     private ImageView imgArray[] = new ImageView[100];
     private ImageView imgPause;
@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         dynamicLayoutConstruction();
         controller = new Controller(this);
+        scoreNum=findViewById(R.id.scoreNum);
         setOnClicks();
 //        makeBackroundVideo();
 
@@ -64,8 +65,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 llMainDynamic.addView(linearLayoutBoard);
                 LinearLayoutScore1.addView(scoreView);
+                LinearLayoutScore1.addView(scoreNum);
                 LinearLayoutPause.addView(imgPause);
-                scoreView.setText("score");
+                scoreView.setText("score:");
                 controller.startThread();
                 controller.clearScore();
                 controller.clearStreak();
@@ -110,7 +112,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void dynamicLayoutConstruction() {
         LinearLayoutPause = findViewById(R.id.linearLayoutPause);
         LinearLayoutScore1 = findViewById(R.id.linearLayoutScore1);
-        LinearLayoutScore1.setOnClickListener(this);
         LinearLayoutScore1.setTag("layoutScore");
         scoreView = findViewById(R.id.scoreView);
         llMainDynamic = findViewById(R.id.llDynamic);
@@ -164,6 +165,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void displayLose() {
         llMainDynamic.removeView(linearLayoutBoard);
         LinearLayoutPause.removeView(imgPause);
+        LinearLayoutScore1.removeView(scoreNum);
         LinearLayoutScore1.removeView(scoreView);
         LinearLayout.LayoutParams retryParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         btnRetry.setLayoutParams(retryParams);
@@ -173,12 +175,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void clearScore() {
-        scoreView.setText("score: 0");
+        scoreNum.setText(""+0);
     }
 
 
     public void displayScore(int score) {
-        scoreView.setText("score:" + score);
+        scoreNum.setText(""+score);
     }
 
     public void displayDialog() {
@@ -187,11 +189,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .setCancelable(false)
                 .setPositiveButton("yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        String parts[] = (String.valueOf(scoreView.getText()).split(":"));
-                        for(String part: parts) {
-                        }
                         Intent oldIntent = getIntent();
-                        controller.insert(oldIntent.getStringExtra("USERNAME"),Integer.parseInt(parts[1]));
+                        ModelUser user= new ModelUser(oldIntent.getStringExtra("USERNAME"),Integer.parseInt((String) scoreNum.getText()));
+                        controller.insert(user);
                     }
                 })
                 .setNegativeButton("no", new DialogInterface.OnClickListener() {
@@ -204,5 +204,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         AlertDialog alert = builder.create();
         alert.show();
     }
+
+
 }
 

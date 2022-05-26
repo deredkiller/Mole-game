@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -31,7 +32,6 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void initViews(){
-
         btnLogin=findViewById(R.id.btnLogin123);
         btnLogin.setOnClickListener(this);
 
@@ -39,6 +39,9 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View view) {
+
+       userNameData=editTextForLoginName.getText().toString();
+        Log.d("yo","username"+userNameData);
         Intent intent =new Intent(this, Menu.class);
         intent.putExtra(LOGIN_KEY,userNameData);
         startActivity(intent);

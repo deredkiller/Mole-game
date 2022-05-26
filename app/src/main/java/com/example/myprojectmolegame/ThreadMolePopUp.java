@@ -7,12 +7,12 @@ import android.util.Log;
 
 public class ThreadMolePopUp extends Thread {
     Handler handler;
-
+    private boolean isRun=true;
     public void setRun(boolean run) {
         isRun = run;
     }
 
-    private boolean isRun=true;
+
 
     public ThreadMolePopUp(Handler handler) {
         this.handler = handler;

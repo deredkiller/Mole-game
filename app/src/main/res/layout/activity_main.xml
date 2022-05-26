@@ -31,10 +31,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
-                android:text="score"
+                android:text="score:"
                 android:textColor="@color/black"
                 android:textSize="25dp"
                />
+
+            <TextView
+                android:id="@+id/scoreNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:textSize="25dp"
+                android:text="" />
             >
         </LinearLayout>
 

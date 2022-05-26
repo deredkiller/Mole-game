@@ -10,7 +10,9 @@ import android.util.Log;
 public class MyService extends Service {
     MediaPlayer player;
 
-    public MyService(){}
+    public MyService(){
+
+    }
 
     @Override
     public IBinder onBind(Intent intent) {

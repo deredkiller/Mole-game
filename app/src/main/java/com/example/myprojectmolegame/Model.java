@@ -21,8 +21,6 @@ public class Model {
 
 
     private Element[] holes;
-    private Random random=new Random();
-    private String TAG = "lol";
     private List<Integer> holesList=new ArrayList<Integer>();
     private int streak=0, numOfHoles;
 
